@@ -1,0 +1,11 @@
+* {
+    margin: 10px 0px;
+    padding: 0px;
+}
+
+#content,
+#title,
+#imageUrl {
+    /* margin: 10px 0px; */
+    padding: 10px
+}
