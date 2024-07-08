@@ -9,3 +9,12 @@
     /* margin: 10px 0px; */
     padding: 10px
 }
+
+ul {
+    list-style: none;
+    color: red;
+}
+
+ul li:before {
+    content: "\25BA \0020";
+}

@@ -1,7 +1,8 @@
 const fs = require("fs");
 const { addblog } = require("../models/blogmodel");
+const { error } = require("console");
 async function creatingbloging(req, res) {
-    return res.status(200).render('createBlog.ejs');
+    return res.status(200).render('createBlog.ejs', { errors: [] });
 }
 async function addingBlog(req, res) {
     const body = req.body;
@@ -28,8 +29,27 @@ function showblogs(req, res) {
 
 
 }
+function validateBlog(req, res, next) {
+    const { title, description, imageUrl } = req.body;
+    let errors = [];
+
+    if (!title || title.length < 3) {
+        errors.push("Title field should contain at least 3 characters");
+    }
+    if (!description || description.length < 10) {
+        errors.push("Blog description should contain at least 10 characters");
+    }
+
+    if (errors.length > 0) {
+        // Render the createBlog.ejs template with errors
+        return res.status(400).render("createBlog.ejs", { errors: errors });
+    } else {
+        next(); // Proceed to the next middleware or route handler
+    }
+}
 module.exports = {
     creatingbloging,
     addingBlog,
-    showblogs
+    showblogs,
+    validateBlog
 };
